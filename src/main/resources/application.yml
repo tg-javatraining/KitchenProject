@@ -1,0 +1,37 @@
+
+server:
+  port: 9002
+spring:
+  profiles:
+    active: dev
+  application:
+    name: Resteruant-Kitchen
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+---
+spring:
+  profiles: dev
+  kafka:
+    consumer:
+      bootstrap-servers:
+        - localhost:9092
+      key-deserializer: org.apache.kafka.common.serialization.IntegerDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      group-id: order-event-listener-group
+
+
+---
+
+spring:
+  profiles: prod
+  kafka:
+    consumer:
+      bootstrap-servers:
+        - localhost:9092
+      key-deserializer: org.apache.kafka.common.serialization.IntegerDeSerializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeSerializer
+      group-id: order-event-listener-group
+
